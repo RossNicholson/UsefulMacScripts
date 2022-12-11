@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Download and install the Caffeinate command-line utility
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install caffeinate
+
+# Import the Caffeinate command-line utility into the script
+source $(brew --prefix)/opt/caffeinate/caffeinate.sh
+
+# Set the time interval between mouse movements (in seconds)
+interval=300
+
+# Keep the script running until it is interrupted
+while true; do
+  # Simulate mouse movement
+  /usr/bin/caffeinate -u -t $interval
+
+  # Move the mouse cursor to a random position on the screen
+  x=$(( ( RANDOM % $(xres) )  + 1 ))
+  y=$(( ( RANDOM % $(yres) )  + 1 ))
+  /usr/bin/xdotool mousemove $x $y
+done
